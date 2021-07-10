@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-=======
-META-INF
-target
-.idea
-._*
->>>>>>> f956f38 (Initial version chartfx)
 # Compiled class file
 *.class
 
 # Log file
 *.log
 
-<<<<<<< HEAD
 # BlueJ files
 *.ctxt
 
@@ -20,10 +12,6 @@ target
 
 # Package Files #
 *.jar
-=======
-
-# Package Files #
->>>>>>> f956f38 (Initial version chartfx)
 *.war
 *.nar
 *.ear

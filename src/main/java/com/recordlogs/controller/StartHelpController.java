@@ -29,7 +29,7 @@ public class StartHelpController {
     public void initialize() {
         WebView webView = new WebView();
         WebEngine browser = webView.getEngine();
-        URL url = this.getClass().getResource("/html/help.html");
+        URL url = this.getClass().getResource("/html/documentation.html");
         browser.load(url.toString());
         helpVBox.getChildren().add(webView);
         helpVBox.setVgrow(webView, Priority.ALWAYS);

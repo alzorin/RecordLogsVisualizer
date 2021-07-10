@@ -93,7 +93,7 @@ public class StartController {
         try{
         Parent loadParent = FXMLLoader.load(getClass().getResource("/StartHelp.fxml"));
         Stage stage = new Stage();
-        stage.setTitle("Help");
+        stage.setTitle("Documentation");
         stage.setScene(new Scene(loadParent));
         stage.show();}
     catch(Exception e)
