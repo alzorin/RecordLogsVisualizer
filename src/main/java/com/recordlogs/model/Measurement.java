@@ -1,13 +1,9 @@
 package com.recordlogs.model;
 
 import javafx.fxml.FXML;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.apache.commons.csv.CSVRecord;
 
 import java.util.Date;
-//@Data
-//@AllArgsConstructor
 
 public class Measurement extends Record{
 

@@ -17,6 +17,7 @@ import de.gsi.chart.renderer.spi.ErrorDataSetRenderer;
 import de.gsi.dataset.spi.DefaultDataSet;
 import javafx.collections.FXCollections;
 
+import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class DottedChart {
             if (activeCases.contains(event.getCaseID())) {
                 int caseOrdinate = parseCaseOrdinate(event, activeCases); //event ordinate is the case number
                 activityTypeTimeSeries.get(event.getActivity()) // We add data points to each DataSet. X: is the timestamp and Y: is the case number
-                        .add(getSeconds(event), caseOrdinate, event.getCaseID() + " " + event.getActivity() + " " + event.getTimestamp());
+                        .add(getSeconds(event), caseOrdinate, getPointLabel(event));
             }
         }
 
@@ -99,7 +100,12 @@ public class DottedChart {
         }
         return 0;
     }
-
+    private static String getPointLabel(Event event) {
+        SimpleDateFormat utcDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        utcDateFormat.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+        String pointLabel = event.getCaseID() + " " + event.getActivity() + " " + utcDateFormat.format(event.getTimestamp());
+        return pointLabel;
+    }
     private static long getSeconds(Event event) {
         return event.getTimestamp().getTime() / 1000;
     }

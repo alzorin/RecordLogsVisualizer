@@ -31,6 +31,12 @@
                   <MenuItem fx:id="deselectAllDatasets" mnemonicParsing="false" text="deselect all" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                </items></Menu>
+            <Menu mnemonicParsing="false" text="Legend">
+               <items>
+                  <MenuItem fx:id="BottomSide" mnemonicParsing="false" onAction="#SetLegendOnTheBottom" text="Display legend" />
+                  <MenuItem fx:id="HideLegend" mnemonicParsing="false" onAction="#SetLegendNotVisible" text="Hide legend" />
+               </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                    <items>
                        <MenuItem fx:id="chartHelp" mnemonicParsing="false" onAction="#openChartHelp" text="Documentation" />

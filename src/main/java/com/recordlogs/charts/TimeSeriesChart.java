@@ -16,6 +16,7 @@ import de.gsi.chart.ui.geometry.Side;
 import de.gsi.dataset.spi.DoubleDataSet;
 import javafx.application.Platform;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.Set;
 
 public class TimeSeriesChart {
 
-    public static XYChart getTimeSeriesChart() {
+    public static XYChart getTimeSeriesChart(List<String> activeMeasurements) {
         final DefaultNumericAxis xAxis = new DefaultNumericAxis("time");
         xAxis.setOverlapPolicy(AxisLabelOverlapPolicy.SKIP_ALT);
         final DefaultNumericAxis yAxis = new DefaultNumericAxis("measurement");
@@ -46,8 +47,8 @@ public class TimeSeriesChart {
         chart.setLegend(new CustomLegend());
         return chart;
     }
-    public static DoubleDataSet createDatasetForCase(String activeCase) {
-        final DoubleDataSet dataset = new DoubleDataSet("case " + activeCase);
+    public static DoubleDataSet createDatasetForCaseAndMeasurement(String activeCase, String activeMeasurement) {
+        final DoubleDataSet dataset = new DoubleDataSet("case " + activeCase + " " + activeMeasurement);
         dataset.setStyle("strokeColor=" + getRandomColor() + "; strokeWidth=2");
         dataset.autoNotification().set(false);
         dataset.clearData();
@@ -55,22 +56,29 @@ public class TimeSeriesChart {
         Platform.runLater(() -> dataset.fireInvalidated(null));
         return dataset;
     }
-    public static ErrorDataSetRenderer getDatasetsPerCase(SourceData sourceData, List<String> activeCasesList, String activeMeasurement) {
-        Map<String, DoubleDataSet> datasetsPerCase = new HashMap<>();
+    public static ErrorDataSetRenderer getDatasetsPerCaseAndMeasurement(SourceData sourceData, List<String> activeCasesList, List<String> activeMeasurements) {
+        Map<String, DoubleDataSet> datasetsPerCaseAndMeasurement = new HashMap<>();
         Set<String> activeCases = new HashSet<>(activeCasesList);
-        activeCases.forEach(activeCase -> datasetsPerCase.put(activeCase, createDatasetForCase(activeCase)));
+        activeCases.forEach(activeCase ->
+                activeMeasurements.forEach(activeMeasurement ->
+                        datasetsPerCaseAndMeasurement.put(getDatasetName(activeCase, activeMeasurement), createDatasetForCaseAndMeasurement(activeCase, activeMeasurement))));
         sourceData.getMeasurements()
                 .stream()
                 .filter(measurement -> activeCases.contains(measurement.getCaseID()))
-                .forEach(measurement -> {
-                    datasetsPerCase.get(measurement.getCaseID())
-                            .add(getSeconds(measurement), getValue(measurement, activeMeasurement));
-                });
+                .forEach(measurement ->
+                        activeMeasurements.forEach(activeMeasurement ->
+                                datasetsPerCaseAndMeasurement.get(getDatasetName(measurement.getCaseID(), activeMeasurement)).add(getSeconds(measurement), getValue(measurement, activeMeasurement), getPointLabel(measurement, activeMeasurement)))
+                );
         final ErrorDataSetRenderer errorRenderer = new ErrorDataSetRenderer();
         errorRenderer.errorStyleProperty().set(ErrorStyle.NONE);
-        errorRenderer.getDatasets().addAll(datasetsPerCase.values());
+        errorRenderer.getDatasets().addAll(datasetsPerCaseAndMeasurement.values());
         return errorRenderer;
     }
+
+    private static String getDatasetName(String activeCase, String activeMeasurement) { // Data set name is the label for the data set that is shown on the legend
+        return activeCase + "_" + activeMeasurement;
+    }
+
     public static String getRandomColor() {
         final Random random = new Random();
         final String[] letters = "0123456789ABCDEF".split("");
@@ -90,5 +98,11 @@ public class TimeSeriesChart {
         } catch (NumberFormatException e) {
             return 0;
         }
+    }
+    private static String getPointLabel(Measurement measurement, String activeMeasurement) {
+        SimpleDateFormat utcDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        utcDateFormat.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+        String pointLabel = measurement.getCaseID() + " " + activeMeasurement + " " + utcDateFormat.format(measurement.getTimestamp());
+        return pointLabel;
     }
 }

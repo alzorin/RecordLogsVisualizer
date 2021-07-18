@@ -24,6 +24,7 @@ import org.controlsfx.control.CheckComboBox;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 
 public class StartController {
@@ -167,7 +168,7 @@ public class StartController {
         timestampComboBox.setOnAction(event -> SceneData.selectedTimestampColumn = timestampComboBox.getValue()); //Save selected timestamp column in SceneData
         typeComboBox.setOnAction(event -> SceneData.selectedTypeColumn = typeComboBox.getValue()); //Save selected type column in SceneData
         measurementsCheckComboBox.getCheckModel().getCheckedItems().addListener((ListChangeListener<String>) listChangeListener ->
-        {SceneData.selectedMeasurements = new HashSet<>(measurementsCheckComboBox.getCheckModel().getCheckedItems());
+        {SceneData.selectedMeasurements = new LinkedHashSet<>(measurementsCheckComboBox.getCheckModel().getCheckedItems());
         if (SceneData.selectedMeasurements.isEmpty())measurementsNotSelected.set(true); else measurementsNotSelected.set(false); }); // Save selected measurements as a Hashset in SceneData, gray out next button if no measurement is selected
         DateFormatInput.disableProperty().bind(DateFormatCheckbox.selectedProperty().not()); //Activate textfield if checkbox is selected
         CSVDelimiterInput.disableProperty().bind(CSVDelimiterCheckbox.selectedProperty().not());

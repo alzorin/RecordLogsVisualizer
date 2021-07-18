@@ -16,7 +16,7 @@ target
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 
 # Package Files #
 *.war

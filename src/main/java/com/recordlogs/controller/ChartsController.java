@@ -7,6 +7,7 @@ import com.recordlogs.model.SourceData;
 import de.gsi.chart.XYChart;
 import de.gsi.chart.axes.spi.CategoryAxis;
 import de.gsi.chart.axes.spi.DefaultNumericAxis;
+import de.gsi.chart.ui.geometry.Side;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +59,7 @@ public class ChartsController {
     @FXML
     private StackPane ChartsPane;
 
-    private String activeMeasurement;
+    private List<String> activeMeasurements;
     private List<String> activeCases;
     private List<String> activeDataSets;
     private XYChart dottedChart;
@@ -97,16 +98,31 @@ public class ChartsController {
 
     }
     @FXML
+    void SetLegendOnTheBottom(ActionEvent event) {
+        dottedChart.setLegendVisible(true);
+        timeSeriesChart.setLegendVisible(true);
+        dottedChart.setLegendSide(Side.BOTTOM);
+        timeSeriesChart.setLegendSide(Side.BOTTOM);
+    }
+    @FXML
+    void SetLegendNotVisible(ActionEvent event) {
+        dottedChart.setLegendVisible(false);
+        timeSeriesChart.setLegendVisible(false);
+    }
+
+    @FXML
     void initialize() {
         activeCases = new ArrayList();
         activeDataSets = new ArrayList();
-        activeMeasurement = selectedMeasurements.stream().findFirst().orElseThrow();
-        fillMeasurementsMenu(selectedMeasurements, activeMeasurement);
+        activeMeasurements = new ArrayList<>();
+        String firstSelectedMeasurement = selectedMeasurements.stream().findFirst().orElseThrow();
+        fillMeasurementsMenu(selectedMeasurements, firstSelectedMeasurement);
+        activeMeasurements.add(firstSelectedMeasurement);
         activeCases = fillCasesMenu(sourceData, activeCases);
         activeDataSets = fillDataSetsMenu(sourceData, activeDataSets);
 
         dottedChart = DottedChart.getDottedChart(sourceData, activeCases,activeDataSets);
-        timeSeriesChart = TimeSeriesChart.getTimeSeriesChart();
+        timeSeriesChart = TimeSeriesChart.getTimeSeriesChart(activeMeasurements);
 
         measurementsMenu.setOnAction(event -> measurementChecked(event, timeSeriesChart, sourceData));
         casesMenu.setOnAction(event -> caseChecked(event, timeSeriesChart, sourceData));
@@ -165,22 +181,26 @@ public class ChartsController {
 
     private void refreshCharts(SourceData sourceData, XYChart timeSeriesChart, XYChart dottedChart) {
         timeSeriesChart.getDatasets().clear();
-        timeSeriesChart.getRenderers().setAll(TimeSeriesChart.getDatasetsPerCase(sourceData, activeCases, activeMeasurement));
+        timeSeriesChart.getRenderers().setAll(TimeSeriesChart.getDatasetsPerCaseAndMeasurement(sourceData, activeCases, activeMeasurements));
 
         dottedChart.getRenderers().setAll(DottedChart.getDataset(sourceData, activeCases, activeDataSets));
     }
 
     private void measurementChecked(ActionEvent event, XYChart chart, SourceData sourceData) {
         CheckMenuItem target = (CheckMenuItem) event.getTarget();
-        String clickedMeasurement = target.getText();
+        if (target.isSelected()) {
+            activeMeasurements.add(target.getText());
+        } else {
+            activeMeasurements.remove(target.getText());
+        }
         measurementsMenu
                 .getItems()
                 .forEach(item -> {
                     CheckMenuItem checkMenuItem = (CheckMenuItem) item;
                     boolean selected = target.getText().equals(checkMenuItem.getText());
                     checkMenuItem.setSelected(selected);
+                    checkMenuItem.setSelected(activeMeasurements.stream().anyMatch(text -> text.equalsIgnoreCase(checkMenuItem.getText())));
                 });
-        activeMeasurement = clickedMeasurement;
         refreshCharts(sourceData, chart, dottedChart);
     }
 
