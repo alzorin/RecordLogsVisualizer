@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class StartHelpController {
+public class HelpController {
     @FXML
     private Button closeButton;
 

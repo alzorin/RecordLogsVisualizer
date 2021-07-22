@@ -8,7 +8,7 @@
 <?import org.controlsfx.control.CheckComboBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="helpVBox" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recordlogs.controller.StartHelpController">
+<VBox fx:id="helpVBox" prefHeight="700.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.recordlogs.controller.HelpController">
    <!--   <children>-->
    <!--      <ComboBox fx:id="caseComboBox" layoutX="96.0" layoutY="71.0" prefHeight="26.0" prefWidth="150.0" promptText="case column" />-->
    <!--      <ComboBox fx:id="activityComboBox" layoutX="96.0" layoutY="150.0" prefHeight="26.0" prefWidth="150.0" promptText="activity column" />-->
