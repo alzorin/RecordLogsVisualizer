@@ -1,8 +1,7 @@
 package com.recordlogs.controller;
 
-import com.recordlogs.SceneData;
 import com.recordlogs.csv.InputFileParser;
-import com.recordlogs.model.ChosenColumnNames;
+import com.recordlogs.csv.ChosenColumnNames;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -23,7 +22,6 @@ import org.controlsfx.control.CheckComboBox;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 

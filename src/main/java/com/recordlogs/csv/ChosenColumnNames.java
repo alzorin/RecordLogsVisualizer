@@ -1,4 +1,4 @@
-package com.recordlogs.model;
+package com.recordlogs.csv;
 
 public class ChosenColumnNames {
     private final String caseColumn;

@@ -1,4 +1,4 @@
-package com.recordlogs;
+package com.recordlogs.controller;
 
 import com.recordlogs.model.SourceData;
 import org.apache.commons.csv.CSVParser;

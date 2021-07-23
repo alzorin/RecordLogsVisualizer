@@ -1,6 +1,5 @@
 package com.recordlogs.csv;
 
-import com.recordlogs.model.ChosenColumnNames;
 import com.recordlogs.model.Event;
 import com.recordlogs.model.Measurement;
 import com.recordlogs.model.SourceData;

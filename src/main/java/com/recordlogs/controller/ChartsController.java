@@ -1,6 +1,5 @@
 package com.recordlogs.controller;
 
-import com.recordlogs.SceneData;
 import com.recordlogs.charts.DottedChart;
 import com.recordlogs.charts.TimeSeriesChart;
 import com.recordlogs.model.SourceData;
@@ -11,7 +10,6 @@ import de.gsi.chart.ui.geometry.Side;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
