@@ -12,12 +12,12 @@
 
 <!-- First Grid: Logo & About -->
 <div class="w3-row">
-  <div class="w3-half w3-container w3-center" style="height:700px">
+  <div class="w3-half w3-light-grey w3-container w3-center" style="height:700px">
 <div class="w3-padding-48">
   <h1>Recordlogs Visualization</h1>
   <h3>Documentation</h3>
 </div>
-    <a href="#recordlogs" class="w3-button w3-block w3-padding-16">Input Data (Record Logs)</a><a href="#" class="w3-button w3-block w3-padding-16">-</a><a href="#cv" class="w3-button w3-block w3-padding-16">-</a><a href="#contact" class="w3-button w3-block w3-padding-16">-</a>
+    <a href="#recordlogs" class="w3-button w3-block w3-padding-16">Input Data (Record Logs)</a><a href="#optional_parameters" class="w3-button w3-block w3-padding-16">Optional Parameters (Start)&nbsp;</a><a href="#visualization" class="w3-button w3-block w3-padding-16">Visualization (Overview)&nbsp;</a><a href="#toolbar" class="w3-button w3-block w3-padding-16">Toolbar and zoom options (Visualization)&nbsp;</a>
 	<p>&nbsp;</p>
 	<p></p>
 	<img src="../img/VisualizationWindow.jpg" alt="" width="280" height="243" class="w3-image"/>
@@ -26,9 +26,58 @@
     <div class="w3-padding-64 w3-center">
       <h1>Input Data (Record Logs)</h1>
       <div class="w3-left-align w3-padding-large">
-        <p>Lorem ipusm sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-        <p>Lorem ipusm sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+        <p>A record log combines event data with time-series data in the same log.&nbsp; &nbsp;&nbsp;</p>
+        <p> Our program supports record logs contained in a CSV file.</p>
+        <p>At present the following attributes of a record log are supported: case-id, timestamp, type, activity, and any number of measurement variables. Other attributes will be ignored. These attributes have to be mapped to the corresponding columns of the CSV file. In the following we give an example for a possible mapping:</p>
       </div>
+		<img src="../img/ColumnSelection.jpg" alt="" width="600" height="276" class="w3-image"/>
+    </div>
+  </div>
+	<div class="w3-half w3-light-grey w3-container" style="height:700px" id="optional_parameters">
+    <div class="w3-padding-64 w3-center">
+      <h1>Optional Parameters (Start)</h1>
+      <div class="w3-left-align w3-padding-large">
+        <p></p>
+        <p>By default the parameters for our CSV parser are set to  "yyyy-MM-dd HH:mm:ssXXX" for the timestamp and ";" for the CSV delimiter.
+        The reference for the possible timestamp format&nbsp;can be viewed here:</p>
+        <p><a href="#timestamp_format" class="w3-button w3-block w3-padding-16"><u>Date and Time Patterns</u></a></p>
+        <p>These parameters can be changed by selecting the corresponding fields <u>before</u> selecting a CSV file.</p>
+        <p>Additionaly, we implemented a tooltip for the column selection fields when the mouse pointer is located and holded on the corresponding field.</p>
+      </div>
+		<img src="../img/OptionalParameters.jpg" alt="" width="200" height="243" class="w3-image"/>
+    </div>
+  </div>
+  <div class="w3-half w3-blue-grey w3-container" style="height:700px" id="visualization">
+    <div class="w3-padding-64 w3-center">
+      <h1>Visualization (Overview)</h1>
+      <div class="w3-left-align w3-padding-large">
+	    <p>The event data in a record log is visualized on the dotted chart on the first half of the window and the time-series data on the line chart on the second half.</p>
+	    <p>Our charts support zooming using the mouse wheel and panning by holding down the middle button of the mouse. Additional zoom options are located on the toolbar of each of the charts.</p>
+<p>Further our charts offer filter options for the charts. The case-ids   of the shown event activities and measurements can be set from the drop-down menu on the top of the window. The activities on the dotted chart can also be filtered and the measurement variables can be added to  the line chart .</p>
+      </div>
+		<img src="../img/VisualizationParameters.jpg" alt="" width="260" height="243" class="w3-image"/>
+    </div>
+  </div>
+	
+  <div class="w3-half w3-light-grey w3-container" style="height:700px" id="toolbar">
+    <div class="w3-padding-64 w3-center">
+      <h1>Toolbar and zoom options (Visualization)</h1>
+      <div class="w3-left-align w3-padding-large">
+		  <p>Additional options, as well as zoom options, are located on separate toolbar&nbsp; that is shown when the mouse pointer is located on the top middle of each of the charts. Clicking on the toolbar fixes it in place. A description is provided below: </p>
+      </div>
+		<img src="../img/Toolbar.jpg" alt="" width="350" height="243" class="w3-image"/>
+		<p></p>
+	  <img src="../img/ToolbarSymbols.jpg" alt="" width="550" height="243" class="w3-image"/>
+    </div>
+  </div>
+	<div class="w3-half w3-blue-grey w3-container" style="height:700px" id="timestamp_format">
+    <div class="w3-padding-64 w3-center">
+      <h1>Date and Time Patterns</h1>
+      <div class="w3-left-align w3-padding-large">
+        <p>The following table shows possible options for the timestamp format:</p>
+        <p>&nbsp;</p>
+      </div>
+		<img src="../img/TimestampPattern.jpg" alt="" width="1300" height="243" class="w3-image"/>
     </div>
   </div>
 </div>
